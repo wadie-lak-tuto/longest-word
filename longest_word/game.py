@@ -1,28 +1,31 @@
-import requests
-import string
 import random
+import string
+import requests
 
 
 class Game:
     def __init__(self) -> list:
         """Attribute a random grid to size 9"""
-        self.grid = [] # TODO
-        for i in range(9):
-            self.grid.append(random.choice(string.ascii_letters).upper())
+        self.grid = []
+        for _ in range(9):
+            self.grid.append(random.choice(string.ascii_uppercase))
 
     def is_valid(self, word: str) -> bool:
         """Return True if and only if the word is valid, given the Game's grid"""
-
-        for c in word:
-            if c in self.grid:
-                    continue
+        if not word:
+            return False
+        letters = self.grid.copy()  # Consume letters from the grid
+        for letter in word:
+            if letter in letters:
+                letters.remove(letter)
             else:
                 return False
-        return self.__check_dictionary(word)
 
+        is_english = self.__check_dictionary(word)
+        return is_english
 
     @staticmethod
     def __check_dictionary(word):
         response = requests.get(f"https://wagon-dictionary.herokuapp.com/{word}")
         json_response = response.json()
-        return json_response['found']
+        return json_response["found"]
