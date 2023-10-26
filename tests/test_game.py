@@ -22,3 +22,10 @@ class TestGame:
         self.test_game_initialization()
         test=Game.is_valid(self,self.grid)
         assert test , 'the word and the grid don\'t match'
+
+
+    def test_unknown_word_is_invalid(self):
+        """A word that is not in the english directory should no be valid"""
+        new_game = Game()
+        new_game.grid = list('KWIENFUQW') # Force the grid to a test case:
+        assert new_game.is_valid('FEUN') is False
