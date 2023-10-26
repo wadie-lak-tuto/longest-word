@@ -9,14 +9,10 @@ class Game:
 
     def is_valid(self, word: str) -> bool:
         """Return True if and only if the word is valid, given the Game's grid"""
-        j=0
-        for c in word:
-            for i in range(9):
-                if c==self.grid[i]:
-                    j=j+1
-                    break
 
-        if j==9:
-            return True
-        else :
-            return False
+        for c in word:
+            if c in self.grid:
+                    continue
+            else:
+                return False
+        return True
