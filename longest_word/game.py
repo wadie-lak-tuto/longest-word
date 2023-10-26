@@ -1,5 +1,7 @@
 import string
 import random
+import requests
+
 class Game:
     def __init__(self) -> list:
         """Attribute a random grid to size 9"""
@@ -15,4 +17,4 @@ class Game:
                     continue
             else:
                 return False
-        return True
+        return self.__check_dictionary(word)
